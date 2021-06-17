@@ -1,0 +1,26 @@
+.schedule-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .schedule-table {
+    thead {
+        background-color: #17A2B9;
+    }
+    td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid black;
+        p {
+            font-size: small;
+        }
+        &:nth-child(even){
+            background-color: rgba(23, 162, 185, 0.3);
+        }
+         &:nth-child(odd){
+            background-color: rgba(23, 162, 185, 0.1);
+        }
+    }
+
+}
+}

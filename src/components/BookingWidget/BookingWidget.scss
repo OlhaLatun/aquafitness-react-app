@@ -1,0 +1,17 @@
+.booking-widget {
+    .widget-header {
+        background-color: #17A2B9;
+        color: #fff;
+    }
+    .widget-body {
+        background-color: rgba(23, 162, 185, 0.3);
+    }
+    .day {
+        margin: 15px;
+        color: #fff;
+        background-color: #17A2B9;
+        &:hover{
+            background-color: #0d6777;
+        }
+    }
+}

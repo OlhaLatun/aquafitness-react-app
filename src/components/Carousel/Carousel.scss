@@ -1,0 +1,16 @@
+.carousel-container .list-group-item {
+  background-color: rgba(0, 255, 255, 0.295);
+  padding: 20px 10px;
+}
+
+.carousel-caption {
+  padding: 0px;
+   background-color: rgba(0, 255, 255, 0.495);
+  color: #fff;
+  opacity: 0, 5;
+  text-transform: uppercase;
+}
+
+.sr-only {
+    visibility: hidden;
+}
