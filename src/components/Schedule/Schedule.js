@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom'
 
 export default class Schedule extends Component {
 
-    onClick = () => {
-        this.props.onLoginClick()
-    }
-
     render() {
         return <section id='schedule' className='container schedule-container mt-5'>
             <h2>Розклад занять</h2>
@@ -16,25 +12,25 @@ export default class Schedule extends Component {
                     <tr>
                         <td>
                             ПН
-                            </td>
+                        </td>
                         <td>
                             ВТ
-                            </td>
+                        </td>
                         <td>
                             СР
-                            </td>
+                        </td>
                         <td>
                             ЧТ
-                            </td>
+                        </td>
                         <td>
                             ПТ
-                            </td>
+                        </td>
                         <td>
                             СБ
-                            </td>
+                        </td>
                         <td>
                             ВС
-                            </td>
+                        </td>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,7 +115,7 @@ export default class Schedule extends Component {
                 </tbody>
             </table>
             <span className='mt-2'>Прайм-тайм – час, коли відвідуваність максимальна. Встигайте зареєструватись.</span>
-            <span> <Link to='/login' onClick={this.onClick} className='btn btn-lg btn-warning mt-2'>Забронювати місце</Link> </span>
+            <span> <Link to='/login' className='btn btn-lg btn-warning mt-2'>Забронювати місце</Link> </span>
         </section>
     }
 }

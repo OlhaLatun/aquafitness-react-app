@@ -1,17 +1,47 @@
 .booking-widget {
+
     .widget-header {
         background-color: #17A2B9;
         color: #fff;
     }
+
     .widget-body {
         background-color: rgba(23, 162, 185, 0.3);
-    }
-    .day {
-        margin: 15px;
-        color: #fff;
-        background-color: #17A2B9;
-        &:hover{
-            background-color: #0d6777;
+
+        .day {
+            margin: 15px;
+            color: #fff;
+            background-color: #17A2B9;
+            &:hover{
+                background-color: #0d6777;
+            }
         }
+
+      .day-chosen {
+        background-color: #0d6777;
     }
+
+    .widget-field {
+
+        .time-slot {
+            font-size: 20px;
+            margin: 10px 0;
+            padding: 10px 15px;
+            color: #fff;
+            background-color: rgb(23, 161, 185);  
+         
+        }
+
+           svg {
+                width: 80px;
+                height: 80px;
+                padding: 20px;
+                background-color:rgba(23, 161, 185, 0.5);  ;
+                border-radius: 50px;
+                path {
+                    fill: rgb(16, 8, 170);  
+                }
+            }
+    }
+}
 }

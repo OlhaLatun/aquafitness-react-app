@@ -7,6 +7,8 @@ import Footer from '../Footer'
 import Schedule from '../Schedule'
 import Login from '../Login'
 import UserPage from '../UserPage'
+import AdminPage from '../AdminPage'
+import firebase from 'firebase'
 
 import {
   BrowserRouter as Router,
@@ -15,32 +17,30 @@ import {
 } from "react-router-dom";
 
 class App extends Component {
-  state = {
-    isLoggedIn: false
-  }
 
-  loginPage = () => {
-    this.setState({ isLoggedIn: true })
+  logOut() {
+    firebase.auth().signOut()
+      .then(() => console.log("User logged out"))
+      .catch(e => console.log(e))
   }
 
   render() {
-    const { isLoggedIn } = this.state
     return (
       <Router>
         <Switch>
           <Route path="/login"><Login /></Route>
-          <Route path="/user/"><UserPage /></Route>
-          {/* <Route path="/admin"><AdminPage /></Route> */}
+          <Route path="/user/"><UserPage userLoggedOut={this.logOut} /></Route>
           <Route path="/" exact>
             <React.Fragment>
               <Header />
               <Jumbotron />
               <Cards />
               <MyCarousel />
-              <Schedule onLoginClick={this.loginPage} />
+              <Schedule />
               <Footer />
             </React.Fragment>
           </Route>
+          <Route path="/admin"><AdminPage /></Route>
         </Switch>
       </Router>
     );
