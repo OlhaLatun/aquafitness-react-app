@@ -53,31 +53,24 @@ class TimeSlots extends Component {
         spots: 10,
     }
 
-    setBooking = (e) => {
-        if (e.target.tagName === 'svg') {
-            let { date, user } = this.props
-            let bookingInfo = {
-                date: date,
-                users: [user]
-            }
+    componentDidMount() {
+        let { date } = this.props
+        bookings[date] = {timeslots: []}
+    }
 
-            if (bookings.length === 0) {
-                bookings.push(bookingInfo)
-            } else {
-                bookings.forEach(obj => {
-                    if (obj.date !== date) {
-                        bookings.push(bookingInfo)
-                    } else {
-                        if (obj.users.length < 10) {
-                            obj.users.push(user)
-                        } else {
-                            console.log('there are no free spots')
-                        }
-                    }
-                })
-            }
+    setBooking = (e) => {
+        let { date, user } = this.props
+
+        if (e.target.tagName === 'svg') {
+            let timeslot = e.target.parentElement.attributes['data-time'].value
+            let slot = bookings[date].timeslots.find(slot => slot.time === timeslot)
+                if (slot) {
+                   slot.users.push(user)
+                } else {
+                    bookings[date].timeslots.push({time: timeslot, users: [user]})
+                }
         }
-        console.log(bookings)
+
     }
 
     render() {
@@ -86,8 +79,8 @@ class TimeSlots extends Component {
             <div>
                 {choosenDay.timeslots.map(t =>
                     <div className='row flex-column m-1'>
-                        <div className='col-md-12 time-slot d-flex align-items-center justify-content-center'>{t}</div>
-                        <div className='col-md-12 d-flex flex-wrap avaliable-spots-container' onClick={this.setBooking}>
+                        <div className='col-md-12 time-slot d-flex align-items-center justify-content-center '>{t}</div>
+                        <div className='col-md-12 d-flex flex-wrap avaliable-spots-container ' data-time={t} onClick={this.setBooking}>
                             {[...Array(this.state.spots)].map(el => < SwimmerIcon />)}
                         </div>
                     </div>
