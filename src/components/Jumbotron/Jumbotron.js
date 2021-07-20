@@ -17,7 +17,7 @@ function Jumbotron() {
                         сповнюєтеся позитивом. Вода тонізує, заряджає, надихає! А під
                         музику ще й пританцьовувати класно!
                         </p>
-                    <a className="btn jumbo-btn btn-lg" href="#" role="button">Дізнатися більше</a>
+                    <button className="btn jumbo-btn btn-lg">Дізнатися більше</button>
                 </div>
             </div>
             <div className="col-md-6"><img className="w-100 mb-4 main-img" src={mainIMG} alt="auqateam" /></div>

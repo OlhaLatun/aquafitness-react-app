@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
 import './Schedule.scss'
 import { Link } from 'react-router-dom'
 
-export default class Schedule extends Component {
+export default function Schedule() {
 
-    render() {
-        return <section id='schedule' className='container schedule-container mt-5'>
+    return (
+        <section id='schedule' className='container schedule-container mt-5'>
             <h2>Розклад занять</h2>
             <table className='schedule-table'>
                 <thead>
@@ -117,5 +116,5 @@ export default class Schedule extends Component {
             <span className='mt-2'>Прайм-тайм – час, коли відвідуваність максимальна. Встигайте зареєструватись.</span>
             <span> <Link to='/login' className='btn btn-lg btn-warning mt-2'>Забронювати місце</Link> </span>
         </section>
-    }
+    )
 }

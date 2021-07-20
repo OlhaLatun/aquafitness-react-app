@@ -12,7 +12,7 @@ export default class BookingWidget extends Component {
     }
 
     onDayChosen = (e) => {
-        if (e.target.tagName == 'P') {
+        if (e.target.tagName === 'P') {
             this.setState({ day: e.target.innerText.slice(0, 2), date: e.target.children[1].innerText })
         }
     }
@@ -51,6 +51,7 @@ class TimeSlots extends Component {
 
     state = {
         spots: 10,
+        booked: false
     }
 
     componentDidMount() {
@@ -60,6 +61,8 @@ class TimeSlots extends Component {
 
     setBooking = (e) => {
         let { date, user } = this.props
+        console.log('setbooking')
+        console.log(e.target)
 
         if (e.target.tagName === 'svg') {
             let timeslot = e.target.parentElement.attributes['data-time'].value
@@ -69,23 +72,24 @@ class TimeSlots extends Component {
                 } else {
                     bookings[date].timeslots.push({time: timeslot, users: [user]})
                 }
+                this.setState({booked: true})
         }
 
+        console.log(bookings)
     }
 
     render() {
         const choosenDay = timetable.find(day => day.name === this.props.day)
-        return (
-            <div>
-                {choosenDay.timeslots.map(t =>
-                    <div className='row flex-column m-1'>
-                        <div className='col-md-12 time-slot d-flex align-items-center justify-content-center '>{t}</div>
-                        <div className='col-md-12 d-flex flex-wrap avaliable-spots-container ' data-time={t} onClick={this.setBooking}>
-                            {[...Array(this.state.spots)].map(el => < SwimmerIcon />)}
+        return ( this.state.booked ? <div>
+                    {choosenDay.timeslots.map(t =>
+                        <div className='row flex-column m-1' key={t}>
+                            <div className='col-md-12 time-slot d-flex align-items-center justify-content-center '>{t}</div>
+                            <div className='col-md-12 d-flex flex-wrap avaliable-spots-container ' data-time={t} onClick={this.setBooking}>
+                                {[...Array(this.state.spots)].map(el => < SwimmerIcon />)}
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div> : <p>Ви записані на {choosenDay.day}. Дякуємо що обираєте нас!</p>
         )
     }
 }

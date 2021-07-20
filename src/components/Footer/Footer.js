@@ -15,7 +15,7 @@ function Footer() {
                 <p>Пишіть нам! grinchswim@gmail.com</p>
             </div>
         </div>
-    </section >
+    </section>
 }
 
 export default Footer

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Header from '../Header'
 import Jumbotron from '../Jumbotron'
 import Cards from '../Cards'
@@ -16,20 +16,18 @@ import {
   Route,
 } from "react-router-dom";
 
-class App extends Component {
+function App() {
 
-  logOut() {
+  const logOut = () => {
     firebase.auth().signOut()
       .then(() => console.log("User logged out"))
       .catch(e => console.log(e))
   }
-
-  render() {
     return (
       <Router>
         <Switch>
           <Route path="/login"><Login /></Route>
-          <Route path="/user/"><UserPage userLoggedOut={this.logOut} /></Route>
+          <Route path="/user/"><UserPage userLoggedOut={logOut} /></Route>
           <Route path="/" exact>
             <React.Fragment>
               <Header />
@@ -43,8 +41,7 @@ class App extends Component {
           <Route path="/admin"><AdminPage /></Route>
         </Switch>
       </Router>
-    );
-  }
+    )
 }
 
 export default App;
