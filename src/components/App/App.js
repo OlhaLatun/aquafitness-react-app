@@ -23,6 +23,7 @@ function App() {
       .then(() => console.log("User logged out"))
       .catch(e => console.log(e))
   }
+  
     return (
       <Router>
         <Switch>
