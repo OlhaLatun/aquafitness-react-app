@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import firebase from 'firebase'
+import { Redirect } from 'react-router-dom'
 import { StyledFirebaseAuth } from 'react-firebaseui'
 import { firebaseConfig } from '../../firebaseConfig'
 import { admins } from '../../fakeData/admins'
@@ -7,6 +8,8 @@ import { admins } from '../../fakeData/admins'
 firebase.initializeApp(firebaseConfig)
 
 function AdminLoginForm() {
+
+    const [isLoggegIn, setAdminStatus] = useState(false)
 
     const onAdminLogin = (e) => {
         e.preventDefault()
@@ -18,6 +21,7 @@ function AdminLoginForm() {
                const admin = admins.find(admin => admin.email === userCredential.user.email)  
                     if (admin) {
                         console.log('admin is logged in')
+                        setAdminStatus(true) 
                     } else {
                         console.log('It seems you have no admin rights')
                     } 
@@ -25,7 +29,7 @@ function AdminLoginForm() {
             .catch(e => console.log(e))
     }
 
-        return <div className="row text-md-center">
+        return isLoggegIn ? <Redirect to='/admin' /> : <div className="row text-md-center">
             <div className='col-md-6 m-auto'>
                 <form onSubmit={onAdminLogin}>
                     <div className="mb-3">
