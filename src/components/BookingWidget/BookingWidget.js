@@ -50,11 +50,13 @@ function TimeSlots(props) {
 
     const spots = 10
     const [booked, setBookingStatus] = useState(false)
-
+    const [timeslot, setTimeslot] = useState('')
+    const { date, day, user } = props
+    const timeslotsToRender = timetable.find(d => d.name === day).timeslots
+    
     useEffect(() => {
-        let { date } = props
         bookings[date] = {timeslots: []}
-    }, [])
+    }, [date])
 
     const setBooking = (e) => {
         let { date, user } = props
@@ -68,22 +70,34 @@ function TimeSlots(props) {
                     bookings[date].timeslots.push({time: timeslot, users: [user]})
                 }
                setBookingStatus(true)
+               setTimeslot(timeslot)
         }
-        console.log(bookings)
     }
 
-    const choosenDay = timetable.find(day => day.name === props.day)
+    const rebook = () => {
+         bookings[date].timeslots.map(slot => {
+             if(slot.time === timeslot) {
+                slot.users = slot.users.filter(u => u !== user)
+             }
+         });
+        setBookingStatus(false)
+        setTimeslot('')
+    }
        
-        return ( <div>
-                    {choosenDay.timeslots.map(t =>
-                        <div className='row flex-column m-1' key={t}>
-                            <div className='col-md-12 time-slot d-flex align-items-center justify-content-center '>{t}</div>
-                            <div className='col-md-12 d-flex flex-wrap avaliable-spots-container ' data-time={t} onClick={setBooking}>
-                                {[...Array(spots)].map(el => < SwimmerIcon />)}
-                            </div>
-                        </div>
-                    )}
-                </div> 
+        return ( 
+            booked ? <div>
+                 <h2> Ви записані на тренування: {date}, {day}, {timeslot} </h2> 
+                 <button className='btn btn-large btn-warning' onClick={rebook}> Змінити дату </button>
+                 </div> : <div>
+            {timeslotsToRender.map(t =>
+                <div className='row flex-column m-1' key={t}>
+                    <div className='col-md-12 time-slot d-flex align-items-center justify-content-center '>{t}</div>
+                    <div className='col-md-12 d-flex flex-wrap avaliable-spots-container ' data-time={t} onClick={setBooking}>
+                        {[...Array(spots)].map(el => < SwimmerIcon />)}
+                    </div>
+                </div>
+            )}
+        </div>   
         )
     }
 
