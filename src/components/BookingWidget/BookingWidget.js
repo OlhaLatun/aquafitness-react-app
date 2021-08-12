@@ -55,7 +55,7 @@ function TimeSlots(props) {
     const timeslotsToRender = timetable.find(d => d.name === day).timeslots
     
     useEffect(() => {
-        bookings[date] = {timeslots: []}
+      bookings[date] = {timeslots: []}  
     }, [date])
 
     const setBooking = (e) => {
