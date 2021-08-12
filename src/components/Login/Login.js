@@ -1,26 +1,37 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import firebase from 'firebase'
+import { Redirect } from 'react-router-dom'
 import { StyledFirebaseAuth } from 'react-firebaseui'
 import { firebaseConfig } from '../../firebaseConfig'
-import { Link } from 'react-router-dom'
+import { admins } from '../../fakeData/admins'
 
 firebase.initializeApp(firebaseConfig)
 
 function AdminLoginForm() {
 
-    const adminLoggedIn = (e) => {
+    const [isLoggegIn, setAdminStatus] = useState(false)
+
+    const onAdminLogin = (e) => {
         e.preventDefault()
         let email = e.target[0].value
         let password = e.target[1].value
 
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => console.log(userCredential.user))
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) =>  {
+               const admin = admins.find(admin => admin.email === userCredential.user.email)  
+                    if (admin) {
+                        console.log('admin is logged in')
+                        setAdminStatus(true) 
+                    } else {
+                        console.log('It seems you have no admin rights')
+                    } 
+            })
             .catch(e => console.log(e))
     }
 
-        return <div className="row text-md-center">
+        return isLoggegIn ? <Redirect to='/admin' /> : <div className="row text-md-center">
             <div className='col-md-6 m-auto'>
-                <form onSubmit={adminLoggedIn}>
+                <form onSubmit={onAdminLogin}>
                     <div className="mb-3">
                         <label htmlFor="InputEmail" className="form-label">Email</label>
                         <input type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp" />
@@ -29,42 +40,34 @@ function AdminLoginForm() {
                         <label htmlFor="InputPassword" className="form-label">Пароль</label>
                         <input type="password" className="form-control" id="InputPassword" />
                     </div>
-                    <Link to='/admin' className="btn btn-primary" type='submit'>Увійти</Link>
+                    <button className="btn btn-primary" type='submit'>Увійти</button>
                 </form>
             </div>
         </div>
     
 }
 
-export default class Login extends Component {
+export default function Login() {
 
-    state = {
-        admin: false
-    }
+const [isAdmin, setIsAdmin] = useState(false)
+const onAdminLogin = () => setIsAdmin(true)
 
-    uiConfig = {
-        signInFlow: 'popup',
-        signInSuccessUrl: '/user/',
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID
-        ],
-    };
-
-    adminSignIn = () => {
-        this.setState({ admin: true })
-    }
-
-    render() {
-
-        return <section className="container mt-5">
-            <div className="row text-md-center">
-                <h2>Вітаємо у аквафітнес родині!</h2>
-                <p>Щоб забронювати місце на заняття, увійдіть в аккаунт за допомогою:</p>
-                <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
-                <button className='btn btn-info' href='#' onClick={this.adminSignIn}>Увійти як адміністратор</button>
-                {this.state.admin ? <AdminLoginForm /> : null}
-            </div>
-        </section>
-    }
+const uiConfig = {
+    signInFlow: 'popup',
+    signInSuccessUrl: '/user/',
+    signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+};
+    return ( <section className="container mt-5">
+             <div className="row text-md-center">
+                    <h2>Вітаємо у аквафітнес родині!</h2>
+                    <p>Щоб забронювати місце на заняття, увійдіть в аккаунт за допомогою:</p>
+                    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+                    <button className='btn btn-info' href='#' onClick={onAdminLogin}>Увійти як адміністратор</button>
+                    { isAdmin ? <AdminLoginForm /> : null}
+                </div>
+             </section>
+        )
 }
 
