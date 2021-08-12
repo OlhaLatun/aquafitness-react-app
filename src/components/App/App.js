@@ -23,26 +23,26 @@ function App() {
       .then(() => console.log("User logged out"))
       .catch(e => console.log(e))
   }
-  
-    return (
-      <Router>
-        <Switch>
-          <Route path="/login"><Login /></Route>
-          <Route path="/user/"><UserPage userLoggedOut={logOut} /></Route>
-          <Route path="/" exact>
-            <React.Fragment>
-              <Header />
-              <Jumbotron />
-              <Cards />
-              <MyCarousel />
-              <Schedule />
-              <Footer />
-            </React.Fragment>
-          </Route>
-          <Route path="/admin"><AdminPage /></Route>
-        </Switch>
-      </Router>
-    )
+
+  return (
+    <Router>
+      <Switch>
+        <Route path="/login"><Login /></Route>
+        <Route path="/user/"><UserPage userLoggedOut={logOut} /></Route>
+        <Route path="/" exact>
+          <React.Fragment>
+            <Header />
+            <Jumbotron />
+            <Cards />
+            <MyCarousel />
+            <Schedule />
+            <Footer />
+          </React.Fragment>
+        </Route>
+        <Route path="/admin"><AdminPage /></Route>
+      </Switch>
+    </Router>
+  )
 }
 
 export default App;
