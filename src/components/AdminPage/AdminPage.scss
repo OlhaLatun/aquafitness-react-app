@@ -1,0 +1,31 @@
+.timetable {
+    margin-top: 40px;
+    display: flex;
+
+    ul {
+        list-style: none;
+          .day {
+            background-color: rgb(202, 234, 245);
+            border: 1px solid cadetblue;
+            padding: 10px 60px;
+            border-radius: 10px;
+            color: cadetblue;
+        }
+
+        li {
+            color: cadetblue;
+            margin: 20px 10px;
+            border-bottom: 1px solid cadetblue;
+            svg {
+                margin-left: 55px;
+                width: 15px;
+                height: 15px;
+                &:hover {
+                    fill: red;
+                }
+            }
+        }
+    }
+
+    
+}

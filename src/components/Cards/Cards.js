@@ -29,8 +29,8 @@ function Cards() {
     return <section className="container mt-5 mb-4">
         <h2 className="card-title">Кому підходять заняття аквафітнесом?</h2>
         <div className="row mt-4">
-            {cards.map(card => {
-                return <div className="col-md-4 col-sm-12">
+            {cards.map((card, i) => {
+                return <div key={i} className="col-md-4 col-sm-12">
                     <div className="card" >
                         <img
                             src={card.img}

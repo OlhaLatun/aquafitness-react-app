@@ -25,8 +25,8 @@ export default function BookingWidget(props) {
         let d = new Date(current.setDate(first)).toLocaleDateString().slice(0, 10)
         week.push({ name: days[i - 1], date: d })
     }
-    return(
-         <div className='row booking-widget'>
+    return (
+        <div className='row booking-widget'>
             <div className='col-md-12 widget-header text-center p-2'>Реєстрація на заняття</div>
             <div className='col-md-12 widget-body d-flex  text-center align-items-center'>
                 <div className='col-md-3 weekdays'>
@@ -53,9 +53,9 @@ function TimeSlots(props) {
     const [timeslot, setTimeslot] = useState('')
     const { date, day, user } = props
     const timeslotsToRender = timetable.find(d => d.name === day).timeslots
-    
+
     useEffect(() => {
-      bookings[date] = {timeslots: []}  
+        bookings[date] = { timeslots: [] }
     }, [date])
 
     const setBooking = (e) => {
@@ -64,31 +64,31 @@ function TimeSlots(props) {
         if (e.target.tagName === 'svg') {
             let timeslot = e.target.parentElement.attributes['data-time'].value
             let slot = bookings[date].timeslots.find(slot => slot.time === timeslot)
-                if (slot) {
-                   slot.users.push(user)
-                } else {
-                    bookings[date].timeslots.push({time: timeslot, users: [user]})
-                }
-               setBookingStatus(true)
-               setTimeslot(timeslot)
+            if (slot) {
+                slot.users.push(user)
+            } else {
+                bookings[date].timeslots.push({ time: timeslot, users: [user] })
+            }
+            setBookingStatus(true)
+            setTimeslot(timeslot)
         }
     }
 
     const rebook = () => {
-         bookings[date].timeslots.map(slot => {
-             if(slot.time === timeslot) {
+        bookings[date].timeslots.forEach(slot => {
+            if (slot.time === timeslot) {
                 slot.users = slot.users.filter(u => u !== user)
-             }
-         });
+            }
+        });
         setBookingStatus(false)
         setTimeslot('')
     }
-       
-        return ( 
-            booked ? <div>
-                 <h2> Ви записані на тренування: {date}, {day}, {timeslot} </h2> 
-                 <button className='btn btn-large btn-warning' onClick={rebook}> Змінити дату </button>
-                 </div> : <div>
+
+    return (
+        booked ? <div>
+            <h2> Ви записані на тренування: {date}, {day}, {timeslot} </h2>
+            <button className='btn btn-large btn-warning' onClick={rebook}> Змінити дату </button>
+        </div> : <div>
             {timeslotsToRender.map(t =>
                 <div className='row flex-column m-1' key={t}>
                     <div className='col-md-12 time-slot d-flex align-items-center justify-content-center '>{t}</div>
@@ -97,7 +97,7 @@ function TimeSlots(props) {
                     </div>
                 </div>
             )}
-        </div>   
-        )
-    }
+        </div>
+    )
+}
 
